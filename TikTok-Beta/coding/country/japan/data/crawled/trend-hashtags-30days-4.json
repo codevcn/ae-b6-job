@@ -1,0 +1,449 @@
+{
+  "code": 0,
+  "msg": "OK",
+  "request_id": "20260313232622DBF553D1F13094329C4B",
+  "data": {
+    "list": [
+      {
+        "hashtag_id": "4331749",
+        "hashtag_name": "レミオロメン",
+        "country_info": {
+          "id": "JP",
+          "value": "Japan",
+          "label": "JP"
+        },
+        "is_promoted": false,
+        "trend": [
+          {
+            "time": 1770768000,
+            "value": 0.09
+          },
+          {
+            "time": 1770854400,
+            "value": 0.08
+          },
+          {
+            "time": 1770940800,
+            "value": 0.07
+          },
+          {
+            "time": 1771027200,
+            "value": 0.06
+          },
+          {
+            "time": 1771113600,
+            "value": 0.07
+          },
+          {
+            "time": 1771200000,
+            "value": 0.07
+          },
+          {
+            "time": 1771286400,
+            "value": 0.07
+          },
+          {
+            "time": 1771372800,
+            "value": 0.08
+          },
+          {
+            "time": 1771459200,
+            "value": 0.07
+          },
+          {
+            "time": 1771545600,
+            "value": 0.09
+          },
+          {
+            "time": 1771632000,
+            "value": 0.11
+          },
+          {
+            "time": 1771718400,
+            "value": 0.08
+          },
+          {
+            "time": 1771804800,
+            "value": 0.08
+          },
+          {
+            "time": 1771891200,
+            "value": 0.1
+          },
+          {
+            "time": 1771977600,
+            "value": 0.08
+          },
+          {
+            "time": 1772064000,
+            "value": 0.08
+          },
+          {
+            "time": 1772150400,
+            "value": 0.09
+          },
+          {
+            "time": 1772236800,
+            "value": 0.11
+          },
+          {
+            "time": 1772323200,
+            "value": 0.14
+          },
+          {
+            "time": 1772409600,
+            "value": 0.16
+          },
+          {
+            "time": 1772496000,
+            "value": 0.14
+          },
+          {
+            "time": 1772582400,
+            "value": 0.15
+          },
+          {
+            "time": 1772668800,
+            "value": 0.12
+          },
+          {
+            "time": 1772755200,
+            "value": 0.16
+          },
+          {
+            "time": 1772841600,
+            "value": 0.19
+          },
+          {
+            "time": 1772928000,
+            "value": 0.2
+          },
+          {
+            "time": 1773014400,
+            "value": 0.34
+          },
+          {
+            "time": 1773100800,
+            "value": 1
+          },
+          {
+            "time": 1773187200,
+            "value": 0.33
+          },
+          {
+            "time": 1773273600,
+            "value": 0.27
+          }
+        ],
+        "publish_cnt": 2395,
+        "video_views": 20484278,
+        "rank": 10,
+        "rank_diff": 0,
+        "rank_diff_type": 2
+      },
+      {
+        "hashtag_id": "7251589243469266945",
+        "hashtag_name": "秋元強真",
+        "country_info": {
+          "id": "JP",
+          "value": "Japan",
+          "label": "JP"
+        },
+        "industry_info": {
+          "id": 28000000000,
+          "value": "Sports \u0026 Outdoor",
+          "label": "label_28000000000"
+        },
+        "is_promoted": false,
+        "trend": [
+          {
+            "time": 1770768000,
+            "value": 0.18
+          },
+          {
+            "time": 1770854400,
+            "value": 0.16
+          },
+          {
+            "time": 1770940800,
+            "value": 0.17
+          },
+          {
+            "time": 1771027200,
+            "value": 0.16
+          },
+          {
+            "time": 1771113600,
+            "value": 0.19
+          },
+          {
+            "time": 1771200000,
+            "value": 0.19
+          },
+          {
+            "time": 1771286400,
+            "value": 0.15
+          },
+          {
+            "time": 1771372800,
+            "value": 0.14
+          },
+          {
+            "time": 1771459200,
+            "value": 0.12
+          },
+          {
+            "time": 1771545600,
+            "value": 0.14
+          },
+          {
+            "time": 1771632000,
+            "value": 0.14
+          },
+          {
+            "time": 1771718400,
+            "value": 0.2
+          },
+          {
+            "time": 1771804800,
+            "value": 0.18
+          },
+          {
+            "time": 1771891200,
+            "value": 0.18
+          },
+          {
+            "time": 1771977600,
+            "value": 0.13
+          },
+          {
+            "time": 1772064000,
+            "value": 0.15
+          },
+          {
+            "time": 1772150400,
+            "value": 0.17
+          },
+          {
+            "time": 1772236800,
+            "value": 0.13
+          },
+          {
+            "time": 1772323200,
+            "value": 0.17
+          },
+          {
+            "time": 1772409600,
+            "value": 0.19
+          },
+          {
+            "time": 1772496000,
+            "value": 0.21
+          },
+          {
+            "time": 1772582400,
+            "value": 0.16
+          },
+          {
+            "time": 1772668800,
+            "value": 0.23
+          },
+          {
+            "time": 1772755200,
+            "value": 0.26
+          },
+          {
+            "time": 1772841600,
+            "value": 0.42
+          },
+          {
+            "time": 1772928000,
+            "value": 1
+          },
+          {
+            "time": 1773014400,
+            "value": 0.7
+          },
+          {
+            "time": 1773100800,
+            "value": 0.37
+          },
+          {
+            "time": 1773187200,
+            "value": 0.35
+          },
+          {
+            "time": 1773273600,
+            "value": 0.26
+          }
+        ],
+        "publish_cnt": 1841,
+        "video_views": 41059117,
+        "rank": 11,
+        "rank_diff": 3,
+        "rank_diff_type": 3
+      },
+      {
+        "hashtag_id": "1668287732675586",
+        "hashtag_name": "heeseung",
+        "country_info": {
+          "id": "JP",
+          "value": "Japan",
+          "label": "JP"
+        },
+        "industry_info": {
+          "id": 23000000000,
+          "value": "News \u0026 Entertainment",
+          "label": "label_23000000000"
+        },
+        "is_promoted": false,
+        "trend": [
+          {
+            "time": 1770768000,
+            "value": 0.09
+          },
+          {
+            "time": 1770854400,
+            "value": 0.1
+          },
+          {
+            "time": 1770940800,
+            "value": 0.11
+          },
+          {
+            "time": 1771027200,
+            "value": 0.1
+          },
+          {
+            "time": 1771113600,
+            "value": 0.12
+          },
+          {
+            "time": 1771200000,
+            "value": 0.11
+          },
+          {
+            "time": 1771286400,
+            "value": 0.09
+          },
+          {
+            "time": 1771372800,
+            "value": 0.11
+          },
+          {
+            "time": 1771459200,
+            "value": 0.08
+          },
+          {
+            "time": 1771545600,
+            "value": 0.09
+          },
+          {
+            "time": 1771632000,
+            "value": 0.09
+          },
+          {
+            "time": 1771718400,
+            "value": 0.09
+          },
+          {
+            "time": 1771804800,
+            "value": 0.09
+          },
+          {
+            "time": 1771891200,
+            "value": 0.08
+          },
+          {
+            "time": 1771977600,
+            "value": 0.07
+          },
+          {
+            "time": 1772064000,
+            "value": 0.09
+          },
+          {
+            "time": 1772150400,
+            "value": 0.05
+          },
+          {
+            "time": 1772236800,
+            "value": 0.07
+          },
+          {
+            "time": 1772323200,
+            "value": 0.09
+          },
+          {
+            "time": 1772409600,
+            "value": 0.09
+          },
+          {
+            "time": 1772496000,
+            "value": 0.08
+          },
+          {
+            "time": 1772582400,
+            "value": 0.08
+          },
+          {
+            "time": 1772668800,
+            "value": 0.07
+          },
+          {
+            "time": 1772755200,
+            "value": 0.09
+          },
+          {
+            "time": 1772841600,
+            "value": 0.1
+          },
+          {
+            "time": 1772928000,
+            "value": 0.1
+          },
+          {
+            "time": 1773014400,
+            "value": 0.1
+          },
+          {
+            "time": 1773100800,
+            "value": 0.09
+          },
+          {
+            "time": 1773187200,
+            "value": 1
+          },
+          {
+            "time": 1773273600,
+            "value": 0.71
+          }
+        ],
+        "creators": [
+          {
+            "nick_name": "aus.jake🍄",
+            "avatar_url": "https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/42850ca931baaa2a187db82c41cb4ea9~tplv-tiktokx-cropcenter:100:100.png?dr=14579\u0026refresh_token=e7cc147d\u0026x-expires=1773586800\u0026x-signature=HNVNIhtnnOCQ1ekQcERFQReZA6U%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=a5d48078\u0026shcp=317596d8\u0026idc=my2"
+          },
+          {
+            "nick_name": "ezekiel",
+            "avatar_url": "https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/5d6d20a32b6dd37eb9f340452ff72004~tplv-tiktokx-cropcenter:100:100.png?dr=14579\u0026refresh_token=c9147af9\u0026x-expires=1773586800\u0026x-signature=Z3xiaPSG9djAb2DvqMz7FV%2BhoQY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=a5d48078\u0026shcp=317596d8\u0026idc=my2"
+          },
+          {
+            "nick_name": "내일은 변하루 HARU",
+            "avatar_url": "https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/c4a885f8cabd87d9a4edc1d7d2ea9b2f~tplv-tiktokx-cropcenter:100:100.png?dr=14579\u0026refresh_token=fd82e8c6\u0026x-expires=1773586800\u0026x-signature=tSlcHrvdFoiAqmkA6VfT9lQLJwU%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=a5d48078\u0026shcp=317596d8\u0026idc=my2"
+          }
+        ],
+        "publish_cnt": 2379,
+        "video_views": 31048397,
+        "rank": 12,
+        "rank_diff_type": 4
+      }
+    ],
+    "pagination": {
+      "page": 4,
+      "size": 3,
+      "total": 100,
+      "has_more": true
+    }
+  }
+}

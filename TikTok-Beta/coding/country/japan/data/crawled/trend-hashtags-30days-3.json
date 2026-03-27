@@ -1,0 +1,440 @@
+{
+  "code": 0,
+  "msg": "OK",
+  "request_id": "202603132326204D3ED4005B95AE1BA581",
+  "data": {
+    "list": [
+      {
+        "hashtag_id": "7012173266722750466",
+        "hashtag_name": "マタニティファッション",
+        "country_info": {
+          "id": "JP",
+          "value": "Japan",
+          "label": "JP"
+        },
+        "industry_info": {
+          "id": 22000000000,
+          "value": "Apparel \u0026 Accessories",
+          "label": "label_22000000000"
+        },
+        "is_promoted": false,
+        "trend": [
+          {
+            "time": 1770768000,
+            "value": 0.22
+          },
+          {
+            "time": 1770854400,
+            "value": 0.28
+          },
+          {
+            "time": 1770940800,
+            "value": 0.22
+          },
+          {
+            "time": 1771027200,
+            "value": 0.33
+          },
+          {
+            "time": 1771113600,
+            "value": 0.37
+          },
+          {
+            "time": 1771200000,
+            "value": 0.55
+          },
+          {
+            "time": 1771286400,
+            "value": 0.55
+          },
+          {
+            "time": 1771372800,
+            "value": 0.54
+          },
+          {
+            "time": 1771459200,
+            "value": 0.58
+          },
+          {
+            "time": 1771545600,
+            "value": 0.62
+          },
+          {
+            "time": 1771632000,
+            "value": 0.73
+          },
+          {
+            "time": 1771718400,
+            "value": 0.76
+          },
+          {
+            "time": 1771804800,
+            "value": 0.69
+          },
+          {
+            "time": 1771891200,
+            "value": 0.8
+          },
+          {
+            "time": 1771977600,
+            "value": 0.72
+          },
+          {
+            "time": 1772064000,
+            "value": 0.83
+          },
+          {
+            "time": 1772150400,
+            "value": 0.81
+          },
+          {
+            "time": 1772236800,
+            "value": 0.65
+          },
+          {
+            "time": 1772323200,
+            "value": 0.53
+          },
+          {
+            "time": 1772409600,
+            "value": 0.6
+          },
+          {
+            "time": 1772496000,
+            "value": 0.65
+          },
+          {
+            "time": 1772582400,
+            "value": 0.77
+          },
+          {
+            "time": 1772668800,
+            "value": 0.76
+          },
+          {
+            "time": 1772755200,
+            "value": 0.85
+          },
+          {
+            "time": 1772841600,
+            "value": 0.38
+          },
+          {
+            "time": 1772928000,
+            "value": 1
+          },
+          {
+            "time": 1773014400,
+            "value": 0.87
+          },
+          {
+            "time": 1773100800,
+            "value": 0.88
+          },
+          {
+            "time": 1773187200,
+            "value": 0.78
+          },
+          {
+            "time": 1773273600,
+            "value": 0.81
+          }
+        ],
+        "publish_cnt": 7552,
+        "video_views": 4288867,
+        "rank": 7,
+        "rank_diff": 0,
+        "rank_diff_type": 2
+      },
+      {
+        "hashtag_id": "7210970791847362566",
+        "hashtag_name": "wbc2026",
+        "country_info": {
+          "id": "JP",
+          "value": "Japan",
+          "label": "JP"
+        },
+        "industry_info": {
+          "id": 28000000000,
+          "value": "Sports \u0026 Outdoor",
+          "label": "label_28000000000"
+        },
+        "is_promoted": false,
+        "trend": [
+          {
+            "time": 1770768000,
+            "value": 0.07
+          },
+          {
+            "time": 1770854400,
+            "value": 0.08
+          },
+          {
+            "time": 1770940800,
+            "value": 0.13
+          },
+          {
+            "time": 1771027200,
+            "value": 0.21
+          },
+          {
+            "time": 1771113600,
+            "value": 0.16
+          },
+          {
+            "time": 1771200000,
+            "value": 0.15
+          },
+          {
+            "time": 1771286400,
+            "value": 0.1
+          },
+          {
+            "time": 1771372800,
+            "value": 0.08
+          },
+          {
+            "time": 1771459200,
+            "value": 0.1
+          },
+          {
+            "time": 1771545600,
+            "value": 0.08
+          },
+          {
+            "time": 1771632000,
+            "value": 0.11
+          },
+          {
+            "time": 1771718400,
+            "value": 0.1
+          },
+          {
+            "time": 1771804800,
+            "value": 0.14
+          },
+          {
+            "time": 1771891200,
+            "value": 0.11
+          },
+          {
+            "time": 1771977600,
+            "value": 0.12
+          },
+          {
+            "time": 1772064000,
+            "value": 0.1
+          },
+          {
+            "time": 1772150400,
+            "value": 0.13
+          },
+          {
+            "time": 1772236800,
+            "value": 0.21
+          },
+          {
+            "time": 1772323200,
+            "value": 0.24
+          },
+          {
+            "time": 1772409600,
+            "value": 0.25
+          },
+          {
+            "time": 1772496000,
+            "value": 0.34
+          },
+          {
+            "time": 1772582400,
+            "value": 0.32
+          },
+          {
+            "time": 1772668800,
+            "value": 0.33
+          },
+          {
+            "time": 1772755200,
+            "value": 0.41
+          },
+          {
+            "time": 1772841600,
+            "value": 0.84
+          },
+          {
+            "time": 1772928000,
+            "value": 1
+          },
+          {
+            "time": 1773014400,
+            "value": 0.94
+          },
+          {
+            "time": 1773100800,
+            "value": 0.71
+          },
+          {
+            "time": 1773187200,
+            "value": 0.81
+          },
+          {
+            "time": 1773273600,
+            "value": 0.66
+          }
+        ],
+        "publish_cnt": 2458,
+        "video_views": 59753049,
+        "rank": 8,
+        "rank_diff": 1,
+        "rank_diff_type": 1
+      },
+      {
+        "hashtag_id": "1623426208139266",
+        "hashtag_name": "日本映画",
+        "country_info": {
+          "id": "JP",
+          "value": "Japan",
+          "label": "JP"
+        },
+        "industry_info": {
+          "id": 23000000000,
+          "value": "News \u0026 Entertainment",
+          "label": "label_23000000000"
+        },
+        "is_promoted": false,
+        "trend": [
+          {
+            "time": 1770768000,
+            "value": 0.1
+          },
+          {
+            "time": 1770854400,
+            "value": 0.2
+          },
+          {
+            "time": 1770940800,
+            "value": 0.18
+          },
+          {
+            "time": 1771027200,
+            "value": 0.23
+          },
+          {
+            "time": 1771113600,
+            "value": 0.05
+          },
+          {
+            "time": 1771200000,
+            "value": 0.15
+          },
+          {
+            "time": 1771286400,
+            "value": 0.14
+          },
+          {
+            "time": 1771372800,
+            "value": 0.04
+          },
+          {
+            "time": 1771459200,
+            "value": 0.04
+          },
+          {
+            "time": 1771545600,
+            "value": 0.12
+          },
+          {
+            "time": 1771632000,
+            "value": 0.13
+          },
+          {
+            "time": 1771718400,
+            "value": 0.13
+          },
+          {
+            "time": 1771804800,
+            "value": 0.06
+          },
+          {
+            "time": 1771891200,
+            "value": 0.09
+          },
+          {
+            "time": 1771977600,
+            "value": 0.24
+          },
+          {
+            "time": 1772064000,
+            "value": 0.44
+          },
+          {
+            "time": 1772150400,
+            "value": 0.6
+          },
+          {
+            "time": 1772236800,
+            "value": 0.66
+          },
+          {
+            "time": 1772323200,
+            "value": 0.61
+          },
+          {
+            "time": 1772409600,
+            "value": 0.37
+          },
+          {
+            "time": 1772496000,
+            "value": 0.47
+          },
+          {
+            "time": 1772582400,
+            "value": 0.36
+          },
+          {
+            "time": 1772668800,
+            "value": 0.45
+          },
+          {
+            "time": 1772755200,
+            "value": 0.53
+          },
+          {
+            "time": 1772841600,
+            "value": 0.54
+          },
+          {
+            "time": 1772928000,
+            "value": 0.65
+          },
+          {
+            "time": 1773014400,
+            "value": 0.6
+          },
+          {
+            "time": 1773100800,
+            "value": 0.88
+          },
+          {
+            "time": 1773187200,
+            "value": 1
+          },
+          {
+            "time": 1773273600,
+            "value": 0.7
+          }
+        ],
+        "publish_cnt": 5949,
+        "video_views": 37315511,
+        "rank": 9,
+        "rank_diff_type": 4
+      }
+    ],
+    "pagination": {
+      "page": 3,
+      "size": 3,
+      "total": 100,
+      "has_more": true
+    }
+  }
+}

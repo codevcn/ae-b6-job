@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Japan Video Streaming — Market Overview</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <style>
+      :root {
+        --bg: #0a0a0f;
+        --surface: #13131a;
+        --card: #1a1a24;
+        --border: #2a2a3a;
+        --tiktok-red: #fe2c55;
+        --tiktok-cyan: #25f4ee;
+        --accent: #ff6b9d;
+        --text: #f0eee8;
+        --muted: #888888;
+        --chart-age-1: #fe2c55;
+        --chart-age-2: #25f4ee;
+        --chart-age-3: rgba(255, 107, 157, 0.7);
+        --chart-bar-1: #fe2c55;
+        --chart-bar-2: rgba(37, 244, 238, 0.7);
+        --chart-bar-3: rgba(37, 244, 238, 0.4);
+        --chart-line: #fe2c55;
+        --chart-line-fill: rgba(254, 44, 85, 0.1);
+        --chart-point: #25f4ee;
+        --chart-grid: rgba(255, 255, 255, 0.05);
+        --chart-grid-alt: rgba(255, 255, 255, 0.04);
+        --gradient-brand: linear-gradient(135deg, #25f4ee, #fe2c55);
+        --gradient-bar: linear-gradient(180deg, #25f4ee, #fe2c55);
+        --grain-opacity: 0.4;
+        --stroke-ghost: rgba(254, 44, 85, 0.12);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Noto Sans JP", sans-serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* Grain overlay */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+        opacity: var(--grain-opacity);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 60px 24px 80px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Header */
+      .header {
+        margin-bottom: 56px;
+        position: relative;
+      }
+
+      .header-label {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--tiktok-cyan);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .header-label::before {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 1px;
+        background: var(--tiktok-cyan);
+      }
+
+      h1 {
+        font-family: "Space Mono", monospace;
+        font-size: clamp(28px, 5vw, 52px);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      h1 .highlight {
+        background: var(--gradient-brand);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .header-sub {
+        margin-top: 16px;
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 560px;
+      }
+
+      .header-watermark {
+        position: absolute;
+        top: -10px;
+        right: 0;
+        font-family: "Space Mono", monospace;
+        font-size: clamp(60px, 10vw, 120px);
+        font-weight: 700;
+        color: transparent;
+        -webkit-text-stroke: 1px var(--stroke-ghost);
+        pointer-events: none;
+        user-select: none;
+        line-height: 1;
+      }
+
+      /* Stats row */
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+        margin-bottom: 40px;
+      }
+
+      .stat-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .stat-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--gradient-brand);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+
+      .stat-card:hover::after {
+        transform: scaleX(1);
+      }
+      .stat-card:hover {
+        background: var(--card);
+      }
+
+      .stat-label {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+
+      .stat-value {
+        font-family: "Space Mono", monospace;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1;
+        background: var(--gradient-brand);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .stat-unit {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+
+      /* Grid layout */
+      .charts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .chart-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 28px;
+        animation: fadeUp 0.6s ease both;
+        transition: background 0.2s;
+      }
+
+      .chart-card:hover {
+        background: var(--card);
+      }
+      .chart-card.full {
+        grid-column: 1 / -1;
+      }
+      .chart-card.tall {
+        min-height: 360px;
+      }
+
+      .chart-title {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--tiktok-cyan);
+        margin-bottom: 6px;
+      }
+
+      .chart-desc {
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .chart-wrap {
+        position: relative;
+      }
+
+      /* Bar chart horizontal custom */
+      .bar-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .bar-item {
+        display: grid;
+        grid-template-columns: 140px 1fr 60px;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .bar-name {
+        font-size: 12px;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .bar-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        flex-shrink: 0;
+      }
+
+      .bar-track {
+        background: var(--border);
+        height: 8px;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        animation: barGrow 1s ease both;
+        position: relative;
+      }
+
+      .bar-pct {
+        font-family: "Space Mono", monospace;
+        font-size: 12px;
+        color: var(--text);
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      @keyframes barGrow {
+        from {
+          width: 0 !important;
+        }
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Trend items */
+      .trend-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .trend-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        transition: border-color 0.2s;
+      }
+
+      .trend-item:hover {
+        border-color: var(--tiktok-cyan);
+      }
+
+      .trend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-top: 5px;
+        flex-shrink: 0;
+      }
+
+      .trend-text {
+        font-size: 13px;
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      .trend-text strong {
+        color: var(--tiktok-cyan);
+      }
+
+      /* Source footnote */
+      .source {
+        margin-top: 48px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .source::before {
+        content: "//";
+        color: var(--tiktok-red);
+      }
+
+      /* Divider */
+      .section-divider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 40px 0 24px;
+      }
+
+      .section-divider span {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .section-divider::before,
+      .section-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      /* Responsive */
+      @media (max-width: 640px) {
+        .charts-grid {
+          grid-template-columns: 1fr;
+        }
+        .chart-card.full {
+          grid-column: auto;
+        }
+        .bar-item {
+          grid-template-columns: 100px 1fr 50px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="header-watermark">JP</div>
+        <div class="header-label">Khảo sát 2023–2026</div>
+        <h1>Video Streaming<br /><span class="highlight">Nhật Bản</span></h1>
+        <p class="header-sub">
+          Ở Nhật, YouTube thống trị với 78.6% người dùng. Không như VN ưu tiên
+          TikTok ngắn, Nhật thích nội dung dài + streaming trả phí — thị trường
+          đạt <strong style="color: var(--tiktok-cyan)">7.2 tỷ USD</strong> năm
+          2025.
+        </p>
+      </div>
+
+      <!-- Stats summary -->
+      <div class="stats-row">
+        <div class="stat-card" style="animation-delay: 0.05s">
+          <div class="stat-label">YouTube</div>
+          <div class="stat-value">
+            78.6<span style="font-size: 16px">%</span>
+          </div>
+          <div class="stat-unit">tỷ lệ người dùng</div>
+        </div>
+        <div class="stat-card" style="animation-delay: 0.1s">
+          <div class="stat-label">Thị trường 2025</div>
+          <div class="stat-value">
+            7.2<span style="font-size: 16px">B</span>
+          </div>
+          <div class="stat-unit">USD — streaming trả phí</div>
+        </div>
+        <div class="stat-card" style="animation-delay: 0.15s">
+          <div class="stat-label">TVer thời lượng</div>
+          <div class="stat-value">23<span style="font-size: 16px">%</span></div>
+          <div class="stat-unit">share thời gian xem TV</div>
+        </div>
+        <div class="stat-card" style="animation-delay: 0.2s">
+          <div class="stat-label">Netflix doanh thu</div>
+          <div class="stat-value">22<span style="font-size: 16px">%</span></div>
+          <div class="stat-unit">share revenue streaming</div>
+        </div>
+      </div>
+
+      <!-- Section: Charts -->
+      <div class="section-divider"><span>Biểu đồ phân tích</span></div>
+
+      <div class="charts-grid">
+        <!-- Horizontal bar chart (custom) -->
+        <div class="chart-card full tall" style="animation-delay: 0.2s">
+          <div class="chart-title">Tỷ lệ sử dụng theo nền tảng</div>
+          <div class="chart-desc">
+            % người dùng internet Nhật sử dụng mỗi app (khảo sát 2023–2026)
+          </div>
+          <div class="bar-list">
+            <div class="bar-item">
+              <div class="bar-name">
+                <div class="bar-icon" style="background: #ff0000">▶</div>
+                YouTube
+              </div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="
+                    width: 78.6%;
+                    background: linear-gradient(90deg, #fe2c55, #ff6b9d);
+                  "
+                ></div>
+              </div>
+              <div class="bar-pct">78.6%</div>
+            </div>
+
+            <div class="bar-item">
+              <div class="bar-name">
+                <div class="bar-icon" style="background: #00a8e1">★</div>
+                Amazon Prime
+              </div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="
+                    width: 22.5%;
+                    background: linear-gradient(90deg, #25f4ee, #00a8e1);
+                  "
+                ></div>
+              </div>
+              <div class="bar-pct">~22.5%</div>
+            </div>
+
+            <div class="bar-item">
+              <div class="bar-name">
+                <div class="bar-icon" style="background: #010101">♪</div>
+                TikTok
+              </div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="
+                    width: 20%;
+                    background: linear-gradient(90deg, #fe2c55, #25f4ee);
+                  "
+                ></div>
+              </div>
+              <div class="bar-pct">Top DL</div>
+            </div>
+
+            <div class="bar-item">
+              <div class="bar-name">
+                <div class="bar-icon" style="background: #0047ab">TV</div>
+                TVer
+              </div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="
+                    width: 23%;
+                    background: linear-gradient(
+                      90deg,
+                      #25f4ee,
+                      rgba(37, 244, 238, 0.5)
+                    );
+                  "
+                ></div>
+              </div>
+              <div class="bar-pct">23% TG</div>
+            </div>
+
+            <div class="bar-item">
+              <div class="bar-name">
+                <div class="bar-icon" style="background: #e50914">N</div>
+                Netflix
+              </div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="
+                    width: 22%;
+                    background: linear-gradient(
+                      90deg,
+                      rgba(254, 44, 85, 0.7),
+                      rgba(254, 44, 85, 0.3)
+                    );
+                  "
+                ></div>
+              </div>
+              <div class="bar-pct">22% DT</div>
+            </div>
+
+            <div class="bar-item">
+              <div class="bar-name">
+                <div class="bar-icon" style="background: #00558c">U+</div>
+                U-NEXT
+              </div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="
+                    width: 14%;
+                    background: linear-gradient(
+                      90deg,
+                      rgba(37, 244, 238, 0.4),
+                      rgba(37, 244, 238, 0.2)
+                    );
+                  "
+                ></div>
+              </div>
+              <div class="bar-pct">Top paid</div>
+            </div>
+
+            <div class="bar-item">
+              <div class="bar-name">
+                <div class="bar-icon" style="background: #888">NN</div>
+                NicoNico
+              </div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="width: 11%; background: var(--border)"
+                ></div>
+              </div>
+              <div class="bar-pct">Anime/Game</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Donut chart -->
+        <div class="chart-card" style="animation-delay: 0.25s">
+          <div class="chart-title">Phân khúc doanh thu</div>
+          <div class="chart-desc">
+            Share doanh thu streaming trả phí tại Nhật 2025
+          </div>
+          <div class="chart-wrap" style="height: 220px">
+            <canvas id="donutChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Radar chart -->
+        <div class="chart-card" style="animation-delay: 0.3s">
+          <div class="chart-title">So sánh đặc điểm nền tảng</div>
+          <div class="chart-desc">Điểm đánh giá theo tiêu chí (0–10)</div>
+          <div class="chart-wrap" style="height: 220px">
+            <canvas id="radarChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Line chart: YouTube growth -->
+        <div class="chart-card full" style="animation-delay: 0.35s">
+          <div class="chart-title">Xu hướng tăng trưởng YouTube tại Nhật</div>
+          <div class="chart-desc">
+            Tỷ lệ người dùng YouTube trên mobile (%) qua các năm
+          </div>
+          <div class="chart-wrap" style="height: 200px">
+            <canvas id="lineChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trends section -->
+      <div class="section-divider" style="margin-top: 40px">
+        <span>Xu hướng nổi bật</span>
+      </div>
+
+      <div class="chart-card full" style="animation-delay: 0.4s; padding: 20px">
+        <div class="trend-list">
+          <div class="trend-item">
+            <div class="trend-dot" style="background: var(--tiktok-red)"></div>
+            <div class="trend-text">
+              <strong>YouTube</strong> thống trị mọi lứa tuổi, đặc biệt mobile —
+              76.4% năm 2019, vẫn dẫn đầu 2026. Anime, vlog, video dài là nội
+              dung chủ đạo.
+            </div>
+          </div>
+          <div class="trend-item">
+            <div class="trend-dot" style="background: var(--tiktok-cyan)"></div>
+            <div class="trend-text">
+              <strong>Streaming trả phí</strong> tăng mạnh: Netflix, Prime
+              Video, U-NEXT, Hulu, ABEMA — thị trường đạt 7.2 tỷ USD năm 2025.
+              Nhật ưu tiên nội dung chất lượng cao, sẵn sàng chi trả.
+            </div>
+          </div>
+          <div class="trend-item">
+            <div class="trend-dot" style="background: var(--accent)"></div>
+            <div class="trend-text">
+              <strong>Short-form</strong> bùng nổ ở giới trẻ: TikTok & CapCut
+              top download/grossing. NicoNico giữ vững cộng đồng anime/game
+              truyền thống.
+            </div>
+          </div>
+          <div class="trend-item">
+            <div class="trend-dot" style="background: var(--chart-bar-2)"></div>
+            <div class="trend-text">
+              <strong>TVer</strong> chiếm 23% thời lượng xem — TV miễn phí, nội
+              dung địa phương. Người Nhật vẫn trung thành với nội dung TV truyền
+              thống qua nền tảng số.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="source">
+        Nguồn: Statista, finance.yahoo.com, AppBrain, KBVResearch, AppStoreSpy —
+        2023–2026
+      </div>
+    </div>
+
+    <script>
+      const mono = "'Space Mono', monospace";
+
+      // Shared chart defaults
+      Chart.defaults.color = "#888888";
+      Chart.defaults.font.family = "'Noto Sans JP', sans-serif";
+      Chart.defaults.font.size = 11;
+
+      /* --- Donut Chart --- */
+      new Chart(document.getElementById("donutChart"), {
+        type: "doughnut",
+        data: {
+          labels: [
+            "Netflix",
+            "Amazon Prime",
+            "U-NEXT",
+            "Hulu JP",
+            "ABEMA & Other",
+          ],
+          datasets: [
+            {
+              data: [22, 28, 18, 14, 18],
+              backgroundColor: [
+                "#fe2c55",
+                "#25f4ee",
+                "rgba(255,107,157,0.7)",
+                "rgba(37,244,238,0.4)",
+                "#2a2a3a",
+              ],
+              borderColor: "#0a0a0f",
+              borderWidth: 3,
+              hoverOffset: 8,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: "68%",
+          plugins: {
+            legend: {
+              position: "right",
+              labels: {
+                color: "#888",
+                font: { size: 10, family: mono },
+                boxWidth: 10,
+                padding: 10,
+              },
+            },
+            tooltip: {
+              backgroundColor: "#13131a",
+              borderColor: "#2a2a3a",
+              borderWidth: 1,
+              titleColor: "#25f4ee",
+              bodyColor: "#f0eee8",
+              callbacks: {
+                label: (ctx) => ` ${ctx.label}: ${ctx.raw}%`,
+              },
+            },
+          },
+        },
+      });
+
+      /* --- Radar Chart --- */
+      new Chart(document.getElementById("radarChart"), {
+        type: "radar",
+        data: {
+          labels: [
+            "Độ phổ biến",
+            "Nội dung anime",
+            "Short-form",
+            "Trả phí",
+            "Nội dung địa phương",
+          ],
+          datasets: [
+            {
+              label: "YouTube",
+              data: [10, 8, 5, 3, 6],
+              borderColor: "#fe2c55",
+              backgroundColor: "rgba(254,44,85,0.12)",
+              pointBackgroundColor: "#25f4ee",
+              pointRadius: 3,
+              borderWidth: 1.5,
+            },
+            {
+              label: "TikTok",
+              data: [6, 3, 10, 4, 4],
+              borderColor: "#25f4ee",
+              backgroundColor: "rgba(37,244,238,0.08)",
+              pointBackgroundColor: "#fe2c55",
+              pointRadius: 3,
+              borderWidth: 1.5,
+            },
+            {
+              label: "Netflix",
+              data: [5, 7, 2, 9, 5],
+              borderColor: "rgba(255,107,157,0.7)",
+              backgroundColor: "rgba(255,107,157,0.06)",
+              pointBackgroundColor: "#ff6b9d",
+              pointRadius: 3,
+              borderWidth: 1.5,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              min: 0,
+              max: 10,
+              ticks: { display: false, stepSize: 2 },
+              grid: { color: "rgba(255,255,255,0.05)" },
+              angleLines: { color: "rgba(255,255,255,0.05)" },
+              pointLabels: { color: "#888", font: { size: 10, family: mono } },
+            },
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: "#888",
+                font: { size: 10, family: mono },
+                boxWidth: 10,
+                padding: 12,
+              },
+            },
+            tooltip: {
+              backgroundColor: "#13131a",
+              borderColor: "#2a2a3a",
+              borderWidth: 1,
+              titleColor: "#25f4ee",
+              bodyColor: "#f0eee8",
+            },
+          },
+        },
+      });
+
+      /* --- Line Chart --- */
+      new Chart(document.getElementById("lineChart"), {
+        type: "line",
+        data: {
+          labels: [
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023",
+            "2024",
+            "2025",
+            "2026E",
+          ],
+          datasets: [
+            {
+              label: "YouTube mobile users (%)",
+              data: [76.4, 77.1, 77.8, 78.0, 78.3, 78.5, 78.6, 79],
+              borderColor: "#fe2c55",
+              backgroundColor: "rgba(254,44,85,0.08)",
+              pointBackgroundColor: "#25f4ee",
+              pointBorderColor: "#fe2c55",
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              borderWidth: 2,
+              fill: true,
+              tension: 0.4,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              grid: { color: "rgba(255,255,255,0.04)" },
+              ticks: { color: "#888", font: { family: mono, size: 10 } },
+              border: { color: "#2a2a3a" },
+            },
+            y: {
+              min: 70,
+              max: 82,
+              grid: { color: "rgba(255,255,255,0.05)" },
+              ticks: {
+                color: "#888",
+                font: { family: mono, size: 10 },
+                callback: (v) => v + "%",
+              },
+              border: { color: "#2a2a3a" },
+            },
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: "#13131a",
+              borderColor: "#2a2a3a",
+              borderWidth: 1,
+              titleColor: "#25f4ee",
+              bodyColor: "#f0eee8",
+              callbacks: {
+                label: (ctx) => ` ${ctx.raw}% người dùng`,
+              },
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

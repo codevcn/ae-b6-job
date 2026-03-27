@@ -1,0 +1,567 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0.5rem;
+      }
+      .report-wrap {
+        padding: 1rem 0;
+        font-size: 14px;
+        color: var(--color-text-primary);
+      }
+      .report-title {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--color-text-primary);
+        margin-bottom: 4px;
+      }
+      .report-sub {
+        font-size: 13px;
+        color: var(--color-text-secondary);
+        margin-bottom: 20px;
+      }
+      .section-label {
+        font-size: 11px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--color-text-tertiary);
+        margin: 24px 0 10px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      thead tr {
+        border-bottom: 1px solid var(--color-border-primary);
+      }
+      thead th {
+        text-align: left;
+        padding: 8px 10px;
+        font-weight: 500;
+        font-size: 12px;
+        color: var(--color-text-secondary);
+        white-space: nowrap;
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--color-border-tertiary);
+        transition: background 0.15s;
+      }
+      tbody tr:hover {
+        background: var(--color-background-secondary);
+      }
+      tbody td {
+        padding: 10px 10px;
+        vertical-align: middle;
+        line-height: 1.45;
+      }
+      .game-name {
+        font-weight: 500;
+        color: var(--color-text-primary);
+      }
+      .game-dev {
+        font-size: 11px;
+        color: var(--color-text-tertiary);
+        margin-top: 2px;
+      }
+      .badge {
+        display: inline-block;
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-weight: 500;
+        line-height: 1.6;
+        white-space: nowrap;
+      }
+      .b-green {
+        background: #eaf3de;
+        color: #3b6d11;
+      }
+      .b-amber {
+        background: #faeeda;
+        color: #854f0b;
+      }
+      .b-teal {
+        background: #e1f5ee;
+        color: #0f6e56;
+      }
+      .b-purple {
+        background: #eeedfe;
+        color: #3c3489;
+      }
+      .b-coral {
+        background: #faece7;
+        color: #993c1d;
+      }
+      .b-blue {
+        background: #e6f1fb;
+        color: #185fa5;
+      }
+      @media (prefers-color-scheme: dark) {
+        .b-green {
+          background: #27500a;
+          color: #c0dd97;
+        }
+        .b-amber {
+          background: #633806;
+          color: #fac775;
+        }
+        .b-teal {
+          background: #085041;
+          color: #9fe1cb;
+        }
+        .b-purple {
+          background: #26215c;
+          color: #afa9ec;
+        }
+        .b-coral {
+          background: #4a1b0c;
+          color: #f0997b;
+        }
+        .b-blue {
+          background: #042c53;
+          color: #85b7eb;
+        }
+      }
+      .score-bar-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .score-bar-bg {
+        flex: 1;
+        height: 6px;
+        background: var(--color-border-tertiary);
+        border-radius: 3px;
+        min-width: 50px;
+      }
+      .score-bar-fill {
+        height: 100%;
+        border-radius: 3px;
+        background: #1d9e75;
+      }
+      .score-val {
+        font-size: 12px;
+        color: var(--color-text-secondary);
+        min-width: 30px;
+        text-align: right;
+      }
+      .num {
+        font-variant-numeric: tabular-nums;
+      }
+      .viral {
+        font-size: 11px;
+        color: var(--color-text-tertiary);
+        margin-top: 2px;
+      }
+      .note {
+        font-size: 12px;
+        color: var(--color-text-tertiary);
+        margin-top: 24px;
+        border-top: 1px solid var(--color-border-tertiary);
+        padding-top: 14px;
+        line-height: 1.6;
+      }
+      .highlight-row td:first-child {
+        border-left: 3px solid #1d9e75;
+        padding-left: 7px;
+      }
+      th.sortable {
+        cursor: pointer;
+        user-select: none;
+      }
+      th.sortable:hover {
+        color: var(--color-text-primary);
+      }
+      .chart-wrap {
+        margin-top: 20px;
+      }
+      .bar-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+        font-size: 12px;
+      }
+      .bar-label {
+        width: 170px;
+        text-align: right;
+        color: var(--color-text-secondary);
+        flex-shrink: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .bar-outer {
+        flex: 1;
+        height: 18px;
+        background: var(--color-border-tertiary);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .bar-inner {
+        height: 100%;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        padding-left: 8px;
+        font-size: 11px;
+        font-weight: 500;
+      }
+      .bar-unit {
+        font-size: 11px;
+        color: var(--color-text-tertiary);
+        min-width: 48px;
+      }
+    </style>
+    <div class="report-wrap">
+      <div class="report-title">Báo cáo Game Indie / Phân Khúc Nhỏ — Ra mắt 2024</div>
+      <div class="report-sub">
+        Tổng hợp các tựa game có lượng user ổn định sau ra mắt · Nguồn: SteamSpy, SteamDB,
+        GameWorldObserver, Wikipedia · Cập nhật Q1 2026
+      </div>
+
+      <div class="section-label">Bảng số liệu chính</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Tựa game</th>
+            <th>Ngày ra mắt</th>
+            <th>Thể loại</th>
+            <th>Giá (USD)</th>
+            <th>Số lượng bán</th>
+            <th>Peak CCU</th>
+            <th>Steam Reviews</th>
+            <th>Điểm đánh giá</th>
+            <th>Kênh viral</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight-row">
+            <td>
+              <div class="game-name">Balatro</div>
+              <div class="game-dev">LocalThunk (solo dev)</div>
+            </td>
+            <td class="num">20/02/2024</td>
+            <td><span class="badge b-purple">Roguelike Deckbuilder</span></td>
+            <td class="num">$14.99</td>
+            <td class="num">3.5M+ (đa nền tảng)</td>
+            <td class="num">~38,500</td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg">
+                  <div class="score-bar-fill" style="width: 98%"></div>
+                </div>
+                <span class="score-val">98%</span>
+              </div>
+              <div class="viral">185,700+ reviews</div>
+            </td>
+            <td><span class="badge b-green">Overwhelmingly Positive</span></td>
+            <td>Twitch · TikTok · YouTube</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="game-name">Buckshot Roulette</div>
+              <div class="game-dev">Mike Klubnika (solo dev)</div>
+            </td>
+            <td class="num">04/04/2024 (Steam)</td>
+            <td><span class="badge b-coral">Horror Tabletop</span></td>
+            <td class="num">$2.99</td>
+            <td class="num">6M+ (Steam + itch.io)</td>
+            <td class="num">~20,000+</td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg">
+                  <div class="score-bar-fill" style="width: 97%"></div>
+                </div>
+                <span class="score-val">~97%</span>
+              </div>
+              <div class="viral">~100,000+ reviews</div>
+            </td>
+            <td><span class="badge b-green">Overwhelmingly Positive</span></td>
+            <td>Twitch · TikTok · YouTube</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="game-name">Manor Lords</div>
+              <div class="game-dev">Greg Styczeń (solo dev) / Hooded Horse</div>
+            </td>
+            <td class="num">26/04/2024 (EA)</td>
+            <td><span class="badge b-teal">City Builder / Strategy</span></td>
+            <td class="num">$39.99</td>
+            <td class="num">2.7M+ (Steam)</td>
+            <td class="num">~173,000</td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg">
+                  <div class="score-bar-fill" style="width: 88%; background: #ef9f27"></div>
+                </div>
+                <span class="score-val">88%</span>
+              </div>
+              <div class="viral">~70,000+ reviews</div>
+            </td>
+            <td><span class="badge b-amber">Mostly Positive</span></td>
+            <td>Steam Wishlist · YouTube</td>
+          </tr>
+          <tr class="highlight-row">
+            <td>
+              <div class="game-name">Chained Together</div>
+              <div class="game-dev">Anegar Games (nhóm nhỏ)</div>
+            </td>
+            <td class="num">19/06/2024</td>
+            <td><span class="badge b-blue">Co-op Platformer</span></td>
+            <td class="num">$4.99</td>
+            <td class="num">5M+ (ước tính)</td>
+            <td class="num">~94,480</td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg">
+                  <div class="score-bar-fill" style="width: 93%"></div>
+                </div>
+                <span class="score-val">~93%</span>
+              </div>
+              <div class="viral">~80,000+ reviews</div>
+            </td>
+            <td><span class="badge b-green">Very Positive</span></td>
+            <td>Twitch · YouTube (co-op chaos)</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="game-name">Liar's Bar</div>
+              <div class="game-dev">Curve Animation (Thổ Nhĩ Kỳ)</div>
+            </td>
+            <td class="num">09/10/2024 (EA)</td>
+            <td><span class="badge b-coral">Social Deduction / Multiplayer</span></td>
+            <td class="num">$6.99</td>
+            <td class="num">Chưa công bố (top 10 Steam 2024)</td>
+            <td class="num">~113,798</td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg">
+                  <div class="score-bar-fill" style="width: 87%; background: #ef9f27"></div>
+                </div>
+                <span class="score-val">87%</span>
+              </div>
+              <div class="viral">~80,000+ reviews</div>
+            </td>
+            <td><span class="badge b-amber">Mostly Positive</span></td>
+            <td>Twitch · TikTok</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="game-name">Supermarket Simulator</div>
+              <div class="game-dev">Nokta Games (Thổ Nhĩ Kỳ)</div>
+            </td>
+            <td class="num">20/02/2024 (EA)</td>
+            <td><span class="badge b-teal">Job Simulator / Management</span></td>
+            <td class="num">$9.99</td>
+            <td class="num">2M–5M (SteamSpy ước tính)</td>
+            <td class="num">~51,363</td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg">
+                  <div class="score-bar-fill" style="width: 88%; background: #ef9f27"></div>
+                </div>
+                <span class="score-val">~88%</span>
+              </div>
+              <div class="viral">60,000+ reviews</div>
+            </td>
+            <td><span class="badge b-amber">Mostly Positive</span></td>
+            <td>Twitch · YouTube</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="game-name">Deep Rock Galactic: Survivor</div>
+              <div class="game-dev">Funday Games (nhóm nhỏ)</div>
+            </td>
+            <td class="num">14/02/2024 (EA)</td>
+            <td><span class="badge b-purple">Survivor-like Auto-shooter</span></td>
+            <td class="num">$12.99</td>
+            <td class="num">1M–2M (SteamSpy ước tính)</td>
+            <td class="num">~56,900</td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg">
+                  <div class="score-bar-fill" style="width: 87%; background: #ef9f27"></div>
+                </div>
+                <span class="score-val">87%</span>
+              </div>
+              <div class="viral">~30,000+ reviews</div>
+            </td>
+            <td><span class="badge b-amber">Mostly Positive</span></td>
+            <td>DRG fanbase · YouTube</td>
+          </tr>
+          <tr class="highlight-row">
+            <td>
+              <div class="game-name">Backpack Battles</div>
+              <div class="game-dev">PlayWithFurcifer (solo/duo)</div>
+            </td>
+            <td class="num">26/03/2024 (EA)</td>
+            <td><span class="badge b-blue">Auto-battler Inventory</span></td>
+            <td class="num">$14.99</td>
+            <td class="num">~500K–1M (ước tính)</td>
+            <td class="num">~36,500</td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg">
+                  <div class="score-bar-fill" style="width: 91%"></div>
+                </div>
+                <span class="score-val">~91%</span>
+              </div>
+              <div class="viral">~25,000+ reviews</div>
+            </td>
+            <td><span class="badge b-green">Very Positive</span></td>
+            <td>Twitch · Reddit</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="game-name">TCG Card Shop Simulator</div>
+              <div class="game-dev">Mithril Games (Thổ Nhĩ Kỳ, nhóm nhỏ)</div>
+            </td>
+            <td class="num">15/09/2024 (EA)</td>
+            <td><span class="badge b-teal">Shop Simulator / TCG</span></td>
+            <td class="num">$14.99</td>
+            <td class="num">1M+ (ước tính)</td>
+            <td class="num">~53,453</td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg">
+                  <div class="score-bar-fill" style="width: 89%; background: #ef9f27"></div>
+                </div>
+                <span class="score-val">~89%</span>
+              </div>
+              <div class="viral">~50,000+ reviews</div>
+            </td>
+            <td><span class="badge b-amber">Mostly Positive</span></td>
+            <td>YouTube · TikTok</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="game-name">MiSide</div>
+              <div class="game-dev">Aihasto (2 người, Nga)</div>
+            </td>
+            <td class="num">11/12/2024</td>
+            <td><span class="badge b-coral">Psychological Horror</span></td>
+            <td class="num">$9.99</td>
+            <td class="num">~500K–1M (ước tính)</td>
+            <td class="num">~25,000+</td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg">
+                  <div class="score-bar-fill" style="width: 97%"></div>
+                </div>
+                <span class="score-val">~97%</span>
+              </div>
+              <div class="viral">41,000+ reviews</div>
+            </td>
+            <td><span class="badge b-green">Overwhelmingly Positive</span></td>
+            <td>TikTok · YouTube (streamer viral)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-label">Peak Concurrent Players (CCU) — So sánh nhanh</div>
+      <div class="chart-wrap">
+        <div class="bar-row">
+          <div class="bar-label">Manor Lords</div>
+          <div class="bar-outer">
+            <div class="bar-inner" style="width: 100%; background: #1d9e75; color: #fff">
+              173,000
+            </div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Liar's Bar</div>
+          <div class="bar-outer">
+            <div class="bar-inner" style="width: 65.7%; background: #0f6e56; color: #fff">
+              113,798
+            </div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Chained Together</div>
+          <div class="bar-outer">
+            <div class="bar-inner" style="width: 54.6%; background: #1d9e75; color: #fff">
+              94,480
+            </div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Deep Rock G.: Survivor</div>
+          <div class="bar-outer">
+            <div class="bar-inner" style="width: 32.9%; background: #5dcaa5; color: #085041">
+              56,900
+            </div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">TCG Card Shop Sim.</div>
+          <div class="bar-outer">
+            <div class="bar-inner" style="width: 30.9%; background: #9fe1cb; color: #085041">
+              53,453
+            </div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Supermarket Simulator</div>
+          <div class="bar-outer">
+            <div class="bar-inner" style="width: 29.7%; background: #9fe1cb; color: #085041">
+              51,363
+            </div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Balatro</div>
+          <div class="bar-outer">
+            <div class="bar-inner" style="width: 22.3%; background: #5dcaa5; color: #085041">
+              38,500
+            </div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Backpack Battles</div>
+          <div class="bar-outer">
+            <div class="bar-inner" style="width: 21.1%; background: #9fe1cb; color: #085041">
+              36,500
+            </div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">MiSide</div>
+          <div class="bar-outer">
+            <div class="bar-inner" style="width: 14.5%; background: #c0dd97; color: #3b6d11">
+              ~25,000
+            </div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Buckshot Roulette</div>
+          <div class="bar-outer">
+            <div class="bar-inner" style="width: 11.6%; background: #c0dd97; color: #3b6d11">
+              ~20,000
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        ⚠️ <strong>Lưu ý phương pháp:</strong> Số lượng bán hàng từ các nguồn công bố chính thức
+        hoặc ước tính SteamSpy / GameDiscoverCo. Một số game (Chained Together, Liar's Bar) chưa có
+        số liệu chính thức. CCU là peak all-time trên Steam. Các game Early Access (EA) vẫn đang
+        trong quá trình phát triển. "Phân khúc nhỏ" được định nghĩa là chi phí sản xuất thấp, team ≤
+        10 người, không có marketing truyền thống quy mô lớn. Manor Lords và DRG: Survivor có thể
+        hơi nằm ở ranh giới nhưng vẫn được tính vì developer cốt lõi rất nhỏ.
+      </div>
+    </div>
+  </body>
+</html>

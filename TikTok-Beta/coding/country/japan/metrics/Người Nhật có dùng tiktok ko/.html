@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TikTok tại Nhật Bản — Thống Kê</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0a0f;
+        --surface: #13131a;
+        --card: #1a1a24;
+        --border: #2a2a3a;
+        --tiktok-red: #fe2c55;
+        --tiktok-cyan: #25f4ee;
+        --accent: #ff6b9d;
+        --text: #f0eee8;
+        --muted: #888;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Space Mono", monospace;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* Grain overlay */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 1000;
+        opacity: 0.4;
+      }
+
+      header {
+        padding: 60px 40px 40px;
+        border-bottom: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::after {
+        content: "TikTok";
+        position: absolute;
+        right: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: "Noto Serif JP", serif;
+        font-size: 160px;
+        font-weight: 700;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(254, 44, 85, 0.12);
+        pointer-events: none;
+        white-space: nowrap;
+      }
+
+      .label {
+        font-size: 11px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--tiktok-cyan);
+        margin-bottom: 12px;
+      }
+
+      h1 {
+        font-family: "Noto Serif JP", serif;
+        font-size: clamp(28px, 5vw, 52px);
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 8px;
+      }
+
+      h1 span {
+        color: var(--tiktok-red);
+      }
+
+      .subtitle {
+        color: var(--muted);
+        font-size: 13px;
+        letter-spacing: 1px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--border);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .stat-card {
+        background: var(--surface);
+        padding: 36px 40px;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.3s;
+      }
+
+      .stat-card:hover {
+        background: var(--card);
+      }
+
+      .stat-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(
+          180deg,
+          var(--tiktok-cyan),
+          var(--tiktok-red)
+        );
+      }
+
+      .stat-number {
+        font-size: clamp(36px, 4vw, 56px);
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 6px;
+        background: linear-gradient(
+          135deg,
+          var(--tiktok-cyan),
+          var(--tiktok-red)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .stat-desc {
+        font-size: 12px;
+        color: var(--muted);
+        letter-spacing: 1px;
+        line-height: 1.6;
+      }
+
+      .charts-section {
+        padding: 60px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+
+      @media (max-width: 768px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .charts-section {
+          grid-template-columns: 1fr;
+          padding: 40px 20px;
+        }
+        header {
+          padding: 40px 20px 30px;
+        }
+        header::after {
+          font-size: 80px;
+        }
+        .stat-card {
+          padding: 24px 20px;
+        }
+      }
+
+      .chart-box {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 2px;
+        padding: 32px;
+        position: relative;
+      }
+
+      .chart-box.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .chart-title {
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--tiktok-cyan);
+        margin-bottom: 6px;
+      }
+
+      .chart-subtitle {
+        font-size: 20px;
+        font-family: "Noto Serif JP", serif;
+        margin-bottom: 28px;
+        color: var(--text);
+      }
+
+      canvas {
+        display: block;
+      }
+
+      footer {
+        padding: 30px 40px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .footer-note {
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 1px;
+      }
+
+      .dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--tiktok-red);
+        margin-right: 6px;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      /* Entry animation */
+      .chart-box,
+      .stat-card {
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .chart-box:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .chart-box:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .stat-card:nth-child(2) {
+        animation-delay: 0.05s;
+      }
+      .stat-card:nth-child(3) {
+        animation-delay: 0.1s;
+      }
+      .stat-card:nth-child(4) {
+        animation-delay: 0.15s;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="label">Dữ liệu thị trường · 2025–2026</div>
+      <h1>TikTok tại<br /><span>Nhật Bản</span></h1>
+      <p class="subtitle">
+        Tổng quan số liệu người dùng &amp; thói quen sử dụng
+      </p>
+    </header>
+
+    <div class="grid">
+      <div class="stat-card">
+        <div class="stat-number">33M+</div>
+        <div class="stat-desc">
+          Người dùng hoạt động hàng tháng<br />(Monthly Active Users)
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">25.3%</div>
+        <div class="stat-desc">
+          Tỷ lệ thâm nhập trong<br />dân số trưởng thành
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">60+</div>
+        <div class="stat-desc">
+          Phút/ngày người dùng dành<br />cho TikTok trung bình
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">+30%</div>
+        <div class="stat-desc">Tăng thời gian sử dụng<br />vào cuối tuần</div>
+      </div>
+    </div>
+
+    <section class="charts-section">
+      <!-- Biểu đồ 1: Phân bổ độ tuổi -->
+      <div class="chart-box">
+        <div class="chart-title">Phân bổ theo độ tuổi</div>
+        <div class="chart-subtitle">Tỷ lệ người dùng theo nhóm tuổi</div>
+        <canvas id="ageChart" height="260"></canvas>
+      </div>
+
+      <!-- Biểu đồ 2: Tỷ lệ sử dụng Gen Z -->
+      <div class="chart-box">
+        <div class="chart-title">Mức độ thâm nhập</div>
+        <div class="chart-subtitle">% dân số dùng TikTok</div>
+        <canvas id="penetrationChart" height="260"></canvas>
+      </div>
+
+      <!-- Biểu đồ 3: Tăng trưởng người dùng -->
+      <div class="chart-box full-width">
+        <div class="chart-title">Xu hướng tăng trưởng</div>
+        <div class="chart-subtitle">
+          Số lượng người dùng TikTok tại Nhật (triệu người)
+        </div>
+        <canvas id="growthChart" height="160"></canvas>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-note">
+        <span class="dot"></span>Nguồn: worldpopulationreview,
+        theglobalstatistics, japanbuzz, humblebunny, nextlevel
+      </div>
+      <div class="footer-note">Dữ liệu cập nhật 2025–2026</div>
+    </footer>
+
+    <script>
+      Chart.defaults.color = "#888";
+      Chart.defaults.font.family = "'Space Mono', monospace";
+      Chart.defaults.font.size = 11;
+
+      const RED = "#fe2c55";
+      const CYAN = "#25f4ee";
+      const PINK = "#ff6b9d";
+      const MUTED = "rgba(255,255,255,0.08)";
+
+      // 1. Biểu đồ donut: phân bổ độ tuổi
+      new Chart(document.getElementById("ageChart"), {
+        type: "doughnut",
+        data: {
+          labels: ["18–34 tuổi", "35–44 tuổi", "45+ tuổi"],
+          datasets: [
+            {
+              data: [56, 27, 17],
+              backgroundColor: [RED, CYAN, "rgba(255,107,157,0.7)"],
+              borderColor: "#1a1a24",
+              borderWidth: 3,
+              hoverOffset: 8,
+            },
+          ],
+        },
+        options: {
+          cutout: "68%",
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                padding: 20,
+                color: "#aaa",
+                font: { size: 11 },
+                boxWidth: 12,
+                boxHeight: 12,
+              },
+            },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `  ${ctx.label}: ${ctx.parsed}%`,
+              },
+            },
+          },
+        },
+      });
+
+      // 2. Biểu đồ ngang: tỷ lệ thâm nhập
+      new Chart(document.getElementById("penetrationChart"), {
+        type: "bar",
+        data: {
+          labels: [
+            "Gen Z (13–19)",
+            "Người dùng internet",
+            "Dân số trưởng thành",
+          ],
+          datasets: [
+            {
+              label: "%",
+              data: [75.8, 24.7, 25.3],
+              backgroundColor: [
+                RED,
+                "rgba(37,244,238,0.7)",
+                "rgba(37,244,238,0.4)",
+              ],
+              borderColor: ["transparent"],
+              borderRadius: 2,
+              barThickness: 28,
+            },
+          ],
+        },
+        options: {
+          indexAxis: "y",
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `  ${ctx.parsed.x}%`,
+              },
+            },
+          },
+          scales: {
+            x: {
+              grid: { color: "rgba(255,255,255,0.05)" },
+              ticks: { callback: (v) => v + "%" },
+              max: 100,
+              border: { color: "transparent" },
+            },
+            y: {
+              grid: { display: false },
+              border: { color: "transparent" },
+              ticks: { color: "#aaa" },
+            },
+          },
+        },
+      });
+
+      // 3. Biểu đồ đường: tăng trưởng
+      new Chart(document.getElementById("growthChart"), {
+        type: "line",
+        data: {
+          labels: ["2020", "2021", "2022", "2023", "2024", "2025", "2026*"],
+          datasets: [
+            {
+              label: "Người dùng (triệu)",
+              data: [10, 15, 19, 23, 26.9, 30, 33],
+              borderColor: RED,
+              backgroundColor: "rgba(254,44,85,0.1)",
+              pointBackgroundColor: CYAN,
+              pointBorderColor: RED,
+              pointRadius: 5,
+              pointHoverRadius: 8,
+              fill: true,
+              tension: 0.4,
+              borderWidth: 2.5,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `  ${ctx.parsed.y} triệu người dùng`,
+              },
+            },
+          },
+          scales: {
+            x: {
+              grid: { color: "rgba(255,255,255,0.04)" },
+              border: { color: "transparent" },
+              ticks: { color: "#888" },
+            },
+            y: {
+              grid: { color: "rgba(255,255,255,0.05)" },
+              border: { color: "transparent" },
+              ticks: { callback: (v) => v + "M", color: "#888" },
+              min: 0,
+              max: 40,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

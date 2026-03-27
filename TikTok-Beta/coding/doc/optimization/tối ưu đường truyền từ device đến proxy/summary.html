@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tối Ưu Đường Truyền VPS</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0c10;
+        --surface: #111318;
+        --border: #1e2330;
+        --accent: #00e5ff;
+        --accent2: #7c3aed;
+        --accent3: #f59e0b;
+        --text: #ffffff; /* Đã thay đổi thành màu trắng */
+        --muted: #8a95a3;
+        --card: #13161f;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Syne", sans-serif;
+        font-size: 14px; /* Đã thêm kích thước chữ chung 14px */
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+
+      /* Grid background */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Glow orbs */
+      .orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .orb-1 {
+        width: 500px;
+        height: 500px;
+        background: rgba(124, 58, 237, 0.12);
+        top: -100px;
+        right: -100px;
+      }
+      .orb-2 {
+        width: 400px;
+        height: 400px;
+        background: rgba(0, 229, 255, 0.08);
+        bottom: 100px;
+        left: -100px;
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 60px 24px 100px;
+      }
+
+      /* Header */
+      header {
+        text-align: center;
+        margin-bottom: 72px;
+        animation: fadeUp 0.8s ease both;
+      }
+
+      .header-label {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 4px;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        opacity: 0.8;
+      }
+
+      header h1 {
+        font-size: clamp(36px, 6vw, 64px);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -2px;
+        background: linear-gradient(135deg, #fff 40%, var(--accent) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 16px;
+      }
+
+      header p {
+        color: var(--muted);
+        font-size: 16px;
+        max-width: 480px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      /* Stats bar */
+      .stats-bar {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 56px;
+        animation: fadeUp 0.8s 0.1s ease both;
+      }
+
+      .stat {
+        background: var(--card);
+        padding: 24px;
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--accent);
+        font-family: "Space Mono", monospace;
+        line-height: 1;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 6px;
+        letter-spacing: 0.5px;
+      }
+
+      /* Section title */
+      .section-title {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 3px;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+
+      /* Cards grid */
+      .cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 0.3s,
+          transform 0.3s;
+        animation: fadeUp 0.7s ease both;
+      }
+
+      .card:hover {
+        border-color: rgba(0, 229, 255, 0.3);
+        transform: translateY(-3px);
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--card-accent, var(--accent));
+        opacity: 0.7;
+      }
+
+      .card.full {
+        grid-column: 1 / -1;
+      }
+      .card.accent1 {
+        --card-accent: var(--accent);
+      }
+      .card.accent2 {
+        --card-accent: var(--accent2);
+      }
+      .card.accent3 {
+        --card-accent: var(--accent3);
+      }
+      .card.accent4 {
+        --card-accent: #10b981;
+      }
+      .card.accent5 {
+        --card-accent: #f43f5e;
+      }
+      .card.accent6 {
+        --card-accent: #8b5cf6;
+      }
+
+      .card-num {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: var(--card-accent, var(--accent));
+        margin-bottom: 14px;
+        letter-spacing: 2px;
+      }
+
+      .card h2 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        line-height: 1.3;
+        color: #fff;
+      }
+
+      .card p {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 16px;
+      }
+
+      /* Tags */
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 4px;
+      }
+
+      .tag {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 4px;
+        background: rgba(0, 229, 255, 0.07);
+        color: var(--accent);
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        letter-spacing: 0.5px;
+      }
+
+      .tag.purple {
+        background: rgba(124, 58, 237, 0.1);
+        color: #a78bfa;
+        border-color: rgba(124, 58, 237, 0.3);
+      }
+
+      .tag.amber {
+        background: rgba(245, 158, 11, 0.1);
+        color: #fbbf24;
+        border-color: rgba(245, 158, 11, 0.3);
+      }
+
+      .tag.green {
+        background: rgba(16, 185, 129, 0.1);
+        color: #34d399;
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+
+      .tag.red {
+        background: rgba(244, 63, 94, 0.1);
+        color: #fb7185;
+        border-color: rgba(244, 63, 94, 0.3);
+      }
+
+      /* Metric row */
+      .metric-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .metric-row:last-child {
+        border-bottom: none;
+      }
+
+      .metric-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        background: var(--accent);
+        box-shadow: 0 0 8px var(--accent);
+      }
+      .metric-dot.purple {
+        background: #a78bfa;
+        box-shadow: 0 0 8px #a78bfa;
+      }
+      .metric-dot.amber {
+        background: #fbbf24;
+        box-shadow: 0 0 8px #fbbf24;
+      }
+      .metric-dot.green {
+        background: #34d399;
+        box-shadow: 0 0 8px #34d399;
+      }
+
+      .metric-text {
+        font-size: 13px;
+        color: var(--text);
+      }
+      .metric-value {
+        margin-left: auto;
+        font-family: "Space Mono", monospace;
+        font-size: 12px;
+        color: var(--accent);
+        white-space: nowrap;
+      }
+
+      /* Protocol compare */
+      .proto-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 4px;
+      }
+
+      .proto {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px;
+        text-align: center;
+        transition: background 0.2s;
+      }
+
+      .proto:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .proto-name {
+        font-weight: 700;
+        font-size: 15px;
+        margin-bottom: 6px;
+        color: #fff;
+      }
+
+      .proto-badge {
+        display: inline-block;
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        padding: 2px 8px;
+        border-radius: 20px;
+        margin-bottom: 10px;
+      }
+
+      .badge-best {
+        background: rgba(16, 185, 129, 0.2);
+        color: #34d399;
+      }
+      .badge-good {
+        background: rgba(245, 158, 11, 0.2);
+        color: #fbbf24;
+      }
+      .badge-basic {
+        background: rgba(100, 116, 139, 0.2);
+        color: #94a3b8;
+      }
+
+      .proto-desc {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      /* Flow diagram */
+      .flow {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-top: 12px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .flow-node {
+        background: rgba(0, 229, 255, 0.07);
+        border: 1px solid rgba(0, 229, 255, 0.25);
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--accent);
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .flow-node.purple {
+        background: rgba(124, 58, 237, 0.1);
+        border-color: rgba(124, 58, 237, 0.3);
+        color: #a78bfa;
+      }
+
+      .flow-node.amber {
+        background: rgba(245, 158, 11, 0.1);
+        border-color: rgba(245, 158, 11, 0.3);
+        color: #fbbf24;
+      }
+
+      .flow-arrow {
+        font-size: 18px;
+        color: var(--border);
+        padding: 0 6px;
+        flex-shrink: 0;
+      }
+
+      /* Code block */
+      .code-block {
+        background: #0d0f14;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px 18px;
+        font-family: "Space Mono", monospace;
+        font-size: 12px;
+        color: #94a3b8;
+        line-height: 1.8;
+        margin-top: 12px;
+        overflow-x: auto;
+      }
+
+      .code-block .k {
+        color: var(--accent);
+      }
+      .code-block .v {
+        color: #fbbf24;
+      }
+      .code-block .c {
+        color: #475569;
+      }
+
+      /* Bottom note */
+      .bottom-note {
+        margin-top: 48px;
+        padding: 20px 24px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        animation: fadeUp 0.7s 0.4s ease both;
+      }
+
+      .note-icon {
+        font-size: 28px;
+      }
+      .note-text {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .note-text strong {
+        color: var(--text);
+      }
+
+      /* Animations */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .card:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .card:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .card:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .card:nth-child(4) {
+        animation-delay: 0.25s;
+      }
+      .card:nth-child(5) {
+        animation-delay: 0.3s;
+      }
+      .card:nth-child(6) {
+        animation-delay: 0.35s;
+      }
+
+      /* Latency bar */
+      .latency-bar-wrap {
+        margin-top: 14px;
+      }
+      .latency-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        margin-bottom: 6px;
+        color: var(--muted);
+      }
+      .latency-track {
+        background: rgba(255, 255, 255, 0.05);
+        height: 8px;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .latency-fill {
+        height: 100%;
+        border-radius: 4px;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        animation: growBar 1.2s ease both;
+      }
+      @keyframes growBar {
+        from {
+          width: 0 !important;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .cards {
+          grid-template-columns: 1fr;
+        }
+        .stats-bar {
+          grid-template-columns: 1fr;
+        }
+        .proto-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+      <header>
+        <div class="header-label">// Tài liệu kỹ thuật</div>
+        <h1>Tối Ưu Đường Truyền<br />Device → Proxy VPS</h1>
+        <p>
+          Các phương pháp giảm latency, giảm packet loss và tăng throughput cho
+          kết nối từ Việt Nam đến AWS VPS.
+        </p>
+      </header>
+
+      <div class="stats-bar">
+        <div class="stat">
+          <div class="stat-value">30–60</div>
+          <div class="stat-label">ms latency tối ưu (SG/HK)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">40–60%</div>
+          <div class="stat-label">cải thiện với AWS Global Accelerator</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">6</div>
+          <div class="stat-label">phương pháp tối ưu chính</div>
+        </div>
+      </div>
+
+      <div class="section-title">— Các phương pháp tối ưu</div>
+
+      <div class="cards">
+        <div class="card accent1">
+          <div class="card-num">01 / REGION</div>
+          <h2>Chọn Region gần nhất</h2>
+          <p>
+            Yếu tố quan trọng hàng đầu — khoảng cách vật lý quyết định phần lớn
+            độ trễ. Ưu tiên đặt VPS tại:
+          </p>
+          <div class="latency-bar-wrap">
+            <div class="latency-label">
+              <span>Singapore (ap-southeast-1)</span><span>~35ms</span>
+            </div>
+            <div class="latency-track">
+              <div class="latency-fill" style="width: 40%"></div>
+            </div>
+          </div>
+          <div class="latency-bar-wrap" style="margin-top: 10px">
+            <div class="latency-label">
+              <span>Hong Kong (ap-east-1)</span><span>~55ms</span>
+            </div>
+            <div class="latency-track">
+              <div class="latency-fill" style="width: 60%"></div>
+            </div>
+          </div>
+          <div class="latency-bar-wrap" style="margin-top: 10px">
+            <div class="latency-label">
+              <span>Tokyo / Seoul</span><span>~100ms+</span>
+            </div>
+            <div class="latency-track">
+              <div
+                class="latency-fill"
+                style="
+                  width: 85%;
+                  background: linear-gradient(90deg, #f59e0b, #f43f5e);
+                "
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card accent2">
+          <div class="card-num">02 / KERNEL</div>
+          <h2>Kích hoạt TCP BBR</h2>
+          <p>
+            Thuật toán kiểm soát tắc nghẽn của Google — đặc biệt hiệu quả trên
+            kết nối đường dài, nhiều packet loss như VN → AWS.
+          </p>
+          <div class="code-block">
+            <span class="c"># /etc/sysctl.conf</span>
+            <span class="k">net.core.default_qdisc</span> =
+            <span class="v">fq</span>
+            <span class="k">net.ipv4.tcp_congestion_control</span> =
+            <span class="v">bbr</span>
+
+            <span class="c"># Áp dụng ngay</span>
+            <span class="k">sysctl</span> -p
+          </div>
+        </div>
+
+        <div class="card accent3 full">
+          <div class="card-num">03 / PROTOCOL</div>
+          <h2>Thay đổi giao thức — thoát khỏi SOCKS5 TCP "trần"</h2>
+          <p>
+            SOCKS5 thuần TCP dễ bị ISP Việt Nam throttle qua DPI. Chuyển sang
+            giao thức có UDP hoặc obfuscation:
+          </p>
+          <div class="proto-grid">
+            <div class="proto">
+              <div class="proto-name">WireGuard</div>
+              <div class="proto-badge badge-best">✦ TỐT NHẤT</div>
+              <div class="proto-desc">
+                UDP-based, latency cực thấp, lý tưởng cho TikTok streaming
+              </div>
+            </div>
+            <div class="proto">
+              <div class="proto-name">Shadowsocks / V2Ray</div>
+              <div class="proto-badge badge-good">✓ TỐT</div>
+              <div class="proto-desc">
+                Mã hóa, vượt DPI mượt mà, VMess/VLESS ổn định
+              </div>
+            </div>
+            <div class="proto">
+              <div class="proto-name">SOCKS5 TCP</div>
+              <div class="proto-badge badge-basic">— CƠ BẢN</div>
+              <div class="proto-desc">
+                Dễ bị throttle, không có obfuscation, phụ thuộc ISP
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card accent4">
+          <div class="card-num">04 / HARDWARE</div>
+          <h2>Tối ưu Instance & ENA</h2>
+          <p>
+            Tránh EC2 quá yếu. Đảm bảo ENA được bật để không bị cap hiệu năng
+            mạng.
+          </p>
+          <div class="metric-row">
+            <span class="metric-dot green"></span>
+            <span class="metric-text">t3.small / c6g / c6i.large</span>
+            <span class="metric-value" style="color: #34d399">Khuyến nghị</span>
+          </div>
+          <div class="metric-row">
+            <span
+              class="metric-dot"
+              style="background: #f43f5e; box-shadow: 0 0 8px #f43f5e"
+            ></span>
+            <span class="metric-text">t3/t4.micro</span>
+            <span class="metric-value" style="color: #fb7185">Tránh</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-dot amber"></span>
+            <span class="metric-text">AWS Global Accelerator</span>
+            <span class="metric-value" style="color: #fbbf24">+40–60%</span>
+          </div>
+          <div style="margin-top: 14px">
+            <div class="flow">
+              <div class="flow-node">Device VN</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node amber">AWS Backbone</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node purple">VPS Proxy</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card accent5">
+          <div class="card-num">05 / SYSCTL & MTU</div>
+          <h2>Tối ưu Kernel Linux & MTU</h2>
+          <p>
+            Điều chỉnh kernel và MTU để tránh phân mảnh gói tin, tăng buffer cho
+            kết nối đường dài.
+          </p>
+          <div class="code-block">
+            <span class="c"># Tăng buffer TCP</span>
+            <span class="k">net.core.rmem_max</span> =
+            <span class="v">134217728</span>
+            <span class="k">net.core.wmem_max</span> =
+            <span class="v">134217728</span>
+            <span class="k">net.ipv4.tcp_rmem</span> =
+            <span class="v">4096 87380 67108864</span>
+
+            <span class="c"># MTU tối ưu (chọn 1)</span>
+            <span class="k">ip link set eth0 mtu</span>
+            <span class="v">1400</span> <span class="c"># hoặc 1450</span>
+          </div>
+        </div>
+
+        <div class="card accent6 full">
+          <div class="card-num">06 / PROXY CONFIG & CLIENT</div>
+          <h2>Tối ưu Dante VPS & Thiết bị cá nhân</h2>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 24px;
+              margin-top: 8px;
+            "
+          >
+            <div>
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: #fff;
+                  margin-bottom: 12px;
+                "
+              >
+                🖥 Trên VPS (Dante)
+              </div>
+              <div class="metric-row">
+                <span class="metric-dot purple"></span>
+                <span class="metric-text">Giảm log level → chỉ ghi lỗi</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-dot purple"></span>
+                <span class="metric-text">Tăng số worker process</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-dot purple"></span>
+                <span class="metric-text">Cấu hình TCP keep-alive</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-dot purple"></span>
+                <span class="metric-text">Reverse proxy phía trước Dante</span>
+              </div>
+            </div>
+            <div>
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: #fff;
+                  margin-bottom: 12px;
+                "
+              >
+                📱 Trên Thiết bị
+              </div>
+              <div class="metric-row">
+                <span class="metric-dot"></span>
+                <span class="metric-text"
+                  >Dùng Wi-Fi / LAN ổn định, tránh 4G</span
+                >
+              </div>
+              <div class="metric-row">
+                <span class="metric-dot"></span>
+                <span class="metric-text"
+                  >Split tunneling — chỉ TikTok qua proxy</span
+                >
+              </div>
+              <div class="metric-row">
+                <span class="metric-dot"></span>
+                <span class="metric-text">QoS router ưu tiên băng thông</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-dot"></span>
+                <span class="metric-text"
+                  >Shadowrocket / V2RayNG / Proxifier</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px">
+            <div class="tags">
+              <span class="tag">Shadowrocket</span>
+              <span class="tag">V2RayNG</span>
+              <span class="tag">Proxifier</span>
+              <span class="tag purple">Split Tunneling</span>
+              <span class="tag purple">TCP Keep-alive</span>
+              <span class="tag amber">QoS Router</span>
+              <span class="tag green">Wi-Fi / LAN</span>
+              <span class="tag red">Giảm log I/O</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-note">
+        <div class="note-icon">⚡</div>
+        <div class="note-text">
+          <strong>Thứ tự ưu tiên triển khai:</strong> Region gần nhất → BBR →
+          Đổi giao thức (WireGuard) → ENA + Instance phù hợp → Kernel/MTU tuning
+          → Dante + Client config. Kết hợp tất cả mang lại hiệu quả tối đa.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+/* ============================================
+   TikTok Beta Workflow — Unified Color Palette
+   ============================================ */
+
+:root {
+  /* --- 1. Brand Colors (Màu thương hiệu) --- */
+  /* Red/Pink */
+  --tiktok-red-v1: #fe2c55; /* Đỏ TikTok chuẩn (File 1) */
+  --tiktok-red-v2: #ff0050; /* Đỏ rực rỡ hơn (File 2) */
+  --tiktok-accent: #ff6b9d; /* Hồng phấn làm điểm nhấn (File 1) */
+
+  /* Cyan */
+  --tiktok-cyan-v1: #25f4ee; /* Xanh cyan nhạt (File 1) */
+  --tiktok-cyan-v2: #00f2ea; /* Xanh cyan đậm/neon (File 2) */
+
+  /* --- 2. Backgrounds & Surfaces (Nền & Bề mặt) --- */
+  /* Nền trang chính */
+  --bg-dark-v1: #0a0a0f; /* Nền đen sâu (File 1) */
+  --bg-dark-v2: #0f172a; /* Nền xanh đen (slate-900 - File 2) */
+  --bg-radial-highlight: #1e1e2d; /* Màu tâm sáng cho nền (File 1) */
+
+  /* Nền các thẻ/Card */
+  --surface-solid: #13131a; /* Thẻ màu solid (File 1) */
+  --surface-glass: rgba(30, 41, 59, 0.7); /* Thẻ hiệu ứng kính (File 2) */
+  --surface-hover: #1a1a24; /* Thẻ khi hover (File 1) */
+
+  /* --- 3. Text & Typography (Màu chữ) --- */
+  --text-primary-v1: #f0eee8; /* Trắng ấm (File 1) */
+  --text-primary-v2: #e2e8f0; /* Xám trắng (slate-200 - File 2) */
+  --text-muted: #888888; /* Xám chú thích (File 1) */
+
+  /* Link */
+  --link-default: #38bdf8; /* Xanh dương nhạt (sky-400 - File 2) */
+  --link-hover: #7dd3fc; /* Xanh dương sáng (sky-300 - File 2) */
+
+  /* --- 4. Borders & Dividers (Viền & Phân cách) --- */
+  --border-solid: #2a2a3a; /* Viền cứng (File 1) */
+  --border-glass: rgba(255, 255, 255, 0.1); /* Viền mờ mờ (File 2) */
+
+  /* --- 5. Status & Utility Colors (Trạng thái) --- */
+  --status-success: #4ade80; /* Xanh lá - Trạng thái Clean (green-400) */
+  --status-warning: #facc15; /* Vàng - Đang xử lý (yellow-400) */
+  --status-error: #f87171; /* Đỏ - Cảnh báo (red-400) */
+
+  /* --- 6. Gradients & Effects (Hiệu ứng) --- */
+  /* Gradient kết hợp Cyan và Red */
+  --gradient-brand-v1: linear-gradient(
+    135deg,
+    var(--tiktok-cyan-v1),
+    var(--tiktok-red-v1)
+  ); /* File 1 */
+  --gradient-brand-v2: linear-gradient(
+    45deg,
+    var(--tiktok-red-v2),
+    var(--tiktok-cyan-v2)
+  ); /* File 2 */
+
+  /* Hiệu ứng bóng/mờ */
+  --stroke-ghost: rgba(254, 44, 85, 0.12); /* Chữ chìm sau nền (File 1) */
+  --shadow-red: rgba(254, 44, 85, 0.2); /* Đổ bóng đỏ (Cả 2 file) */
+
+  /* --- 7. Text Font (Font chữ) --- */
+  --font-primary: "Roboto", sans-serif;
+}

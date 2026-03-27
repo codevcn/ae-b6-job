@@ -1,0 +1,11 @@
+Insights game 2048:
+
+- Mỗi người dùng khi vào chơi game thì: yêu cầu nhập: Họ tên, Số điện thoại, Email (Có gửi email về để xác nhận)
+- Bảng vinh danh -> đổi thành bảng vinh danh ngày ... , Có bổ sung thêm bảng vinh danh của từng ngày. Ngoài số điểm thì hiển thị thêm: Số ván đã chơi - số điểm
+- Kiểm duyệt họ tên: Không cho đặt tên nếu chứa các kí tự tục tĩu.
+- chính sách quyền riêng tư dùng domain: policy.b6-team.site
+  + Có nêu rõ các thông tin mình thu thập
+  + Các trách nhiệm miễn trừ
+- Chỉ có duy nhất 1 chế độ 4x4 thôi.
+=> Nếu chính xác thì trao thưởng -> setup trên hệ thống báo đã nhận thưởng ngày hôm đó.
+(Công khai lên bảng xếp hạng ai đã nhận thưởng).
