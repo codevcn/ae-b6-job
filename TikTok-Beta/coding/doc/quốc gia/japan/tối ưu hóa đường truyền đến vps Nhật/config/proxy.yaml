@@ -1,0 +1,21 @@
+mixed-port: 7890
+allow-lan: false
+mode: global
+log-level: info
+ipv6: false
+
+proxies:
+  - name: "Tokyo VPS"
+    type: socks5
+    server: 166.117.107.118
+    port: 1080
+    udp: true
+
+proxy-groups:
+  - name: "PROXY"
+    type: select
+    proxies:
+      - "Tokyo VPS"
+
+rules:
+  - MATCH,PROXY

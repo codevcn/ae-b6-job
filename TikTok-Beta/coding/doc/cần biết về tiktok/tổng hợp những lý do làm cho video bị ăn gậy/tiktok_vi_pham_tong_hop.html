@@ -1,0 +1,168 @@
+
+<style>
+  .wrap { padding: 16px 0; font-family: var(--font-sans); }
+  .section-title { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin: 24px 0 10px; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cards.single { grid-template-columns: 1fr; }
+  .card { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; }
+  .card-head { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; }
+  .badge { width: 28px; height: 28px; min-width: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .badge.red { background: var(--color-background-danger); }
+  .badge.amber { background: var(--color-background-warning); }
+  .badge.blue { background: var(--color-background-info); }
+  .badge.gray { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-secondary); }
+  .card-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); line-height: 1.4; margin-top: 4px; }
+  .card-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+  .divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 8px 0 16px; }
+  .highlight-box { border-radius: var(--border-radius-lg); padding: 16px 18px; margin-bottom: 10px; }
+  .highlight-box.orange { background: #FAEEDA; border: 0.5px solid #FAC775; }
+  .highlight-box.purple { background: #EEEDFE; border: 0.5px solid #CECBF6; }
+  .highlight-box.orange .hb-title { color: #633806; font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .highlight-box.purple .hb-title { color: #3C3489; font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .highlight-box.orange .hb-body { color: #854F0B; font-size: 12.5px; line-height: 1.65; }
+  .highlight-box.purple .hb-body { color: #534AB7; font-size: 12.5px; line-height: 1.65; }
+  .highlight-box .pill { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; margin-right: 4px; margin-bottom: 4px; }
+  .highlight-box.orange .pill { background: #FAC775; color: #412402; }
+  .highlight-box.purple .pill { background: #CECBF6; color: #26215C; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; margin-bottom: 4px; }
+  .tag.red { background: var(--color-background-danger); color: var(--color-text-danger); }
+  .tag.amber { background: var(--color-background-warning); color: var(--color-text-warning); }
+  .tag.blue { background: var(--color-background-info); color: var(--color-text-info); }
+  .penalty-row { display: flex; gap: 8px; align-items: stretch; margin-top: 10px; }
+  .penalty-box { flex: 1; border-radius: var(--border-radius-md); padding: 10px 12px; text-align: center; }
+  .penalty-box .p-label { font-size: 11px; font-weight: 500; margin-bottom: 4px; }
+  .penalty-box .p-desc { font-size: 11px; line-height: 1.5; }
+  .p1 { background: #EAF3DE; border: 0.5px solid #C0DD97; }
+  .p1 .p-label { color: #3B6D11; }
+  .p1 .p-desc { color: #27500A; }
+  .p2 { background: #FAEEDA; border: 0.5px solid #FAC775; }
+  .p2 .p-label { color: #854F0B; }
+  .p2 .p-desc { color: #633806; }
+  .p3 { background: #FAECE7; border: 0.5px solid #F5C4B3; }
+  .p3 .p-label { color: #993C1D; }
+  .p3 .p-desc { color: #712B13; }
+  .p4 { background: #FCEBEB; border: 0.5px solid #F7C1C1; }
+  .p4 .p-label { color: #A32D2D; }
+  .p4 .p-desc { color: #791F1F; }
+  @media (prefers-color-scheme: dark) {
+    .highlight-box.orange { background: #412402; border-color: #854F0B; }
+    .highlight-box.purple { background: #26215C; border-color: #534AB7; }
+    .highlight-box.orange .hb-title { color: #FAC775; }
+    .highlight-box.purple .hb-title { color: #CECBF6; }
+    .highlight-box.orange .hb-body { color: #EF9F27; }
+    .highlight-box.purple .hb-body { color: #AFA9EC; }
+    .highlight-box.orange .pill { background: #633806; color: #FAC775; }
+    .highlight-box.purple .pill { background: #3C3489; color: #CECBF6; }
+    .p1 { background: #173404; border-color: #3B6D11; }
+    .p1 .p-label { color: #C0DD97; }
+    .p1 .p-desc { color: #97C459; }
+    .p2 { background: #412402; border-color: #854F0B; }
+    .p2 .p-label { color: #FAC775; }
+    .p2 .p-desc { color: #EF9F27; }
+    .p3 { background: #4A1B0C; border-color: #993C1D; }
+    .p3 .p-label { color: #F5C4B3; }
+    .p3 .p-desc { color: #F0997B; }
+    .p4 { background: #501313; border-color: #A32D2D; }
+    .p4 .p-label { color: #F7C1C1; }
+    .p4 .p-desc { color: #F09595; }
+  }
+</style>
+<div class="wrap">
+
+  <div class="section-title">Mức độ xử phạt</div>
+  <div class="penalty-row">
+    <div class="penalty-box p1"><div class="p-label">Cảnh báo</div><div class="p-desc">Thông báo hộp thư đến, video bị xóa</div></div>
+    <div class="penalty-box p2"><div class="p-label">Hạn chế</div><div class="p-desc">Cấm đăng 24–72h, không bình luận / live</div></div>
+    <div class="penalty-box p3"><div class="p-label">Tạm khóa</div><div class="p-desc">24–48h hoặc tới 1 tuần, ẩn khỏi FYF</div></div>
+    <div class="penalty-box p4"><div class="p-label">Khóa vĩnh viễn</div><div class="p-desc">Ban tài khoản + có thể chặn thiết bị</div></div>
+  </div>
+
+  <div class="section-title" style="margin-top:28px">Các nhóm vi phạm chính</div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-head"><div class="badge red">🔞</div><div class="card-title">Nội dung không phù hợp</div></div>
+      <div class="card-desc">Nội dung khỏa thân, khiêu dâm, bạo lực cực đoan, kinh dị, ma túy, tự tử, tự hại. Vi phạm lần đầu có thể bị ban ngay.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="badge red">🎵</div><div class="card-title">Vi phạm bản quyền</div></div>
+      <div class="card-desc">Dùng nhạc, hình ảnh, video không có phép — kể cả đăng lại nội dung người khác. TikTok tắt âm hoặc gỡ video.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="badge amber">💬</div><div class="card-title">Quấy rối & bắt nạt</div></div>
+      <div class="card-desc">Bình luận đe dọa, tiết lộ thông tin cá nhân người khác, quay lén, quấy rối tình dục hoặc lạm dụng tập thể.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="badge amber">🎭</div><div class="card-title">Giả mạo danh tính</div></div>
+      <div class="card-desc">Tạo tài khoản giả mạo, dùng hình ảnh / thông tin người khác để đánh lừa. Kể cả mạo danh người nổi tiếng.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="badge amber">🤖</div><div class="card-title">Tương tác ảo & spam</div></div>
+      <div class="card-desc">Mua view / like / follow, dùng bot tăng tương tác, spam bình luận, đăng tải lặp lại cùng nội dung nhiều lần.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="badge red">🚫</div><div class="card-title">Thông tin sai lệch</div></div>
+      <div class="card-desc">Tin giả về sức khỏe, bầu cử, khủng hoảng. Deepfake nhân vật công cộng dùng cho mục đích chính trị / thương mại.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="badge blue">💊</div><div class="card-title">Hàng hóa bị kiểm soát</div></div>
+      <div class="card-desc">Bán / quảng cáo vũ khí, ma túy, thuốc kê đơn, cờ bạc, hộp bí ẩn, sản phẩm tài chính rủi ro cao. Chỉ tài khoản doanh nghiệp đã xác minh mới được phép một số mục.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="badge blue">📢</div><div class="card-title">Quảng cáo chưa khai báo</div></div>
+      <div class="card-desc">Đăng video quảng bá sản phẩm / thương hiệu mà không bật tính năng "Thông báo nội dung thương mại" → video mất quyền xuất hiện FYF.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="badge blue">🔒</div><div class="card-title">Bảo mật nền tảng</div></div>
+      <div class="card-desc">Cố tình xâm nhập hệ thống TikTok, tấn công kỹ thuật đảo ngược, tạo lại tài khoản sau khi bị cấm để né lệnh ban.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="badge gray">🧒</div><div class="card-title">An toàn trẻ em</div></div>
+      <div class="card-desc">Mọi nội dung gợi tình liên quan tới người dưới 18 tuổi → bị ban vĩnh viễn ngay, không cần lần thứ 2. TikTok báo cáo cho cơ quan chức năng.</div>
+    </div>
+
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-title">Phân tích chuyên sâu — 2 lý do đặc biệt</div>
+
+  <div class="highlight-box orange">
+    <div class="hb-title">Affiliate cá nhân (không phải doanh nghiệp)</div>
+    <div class="hb-body">
+      TikTok phân biệt rõ <strong style="font-weight:500">tài khoản doanh nghiệp đã đăng ký & xác minh</strong> với tài khoản cá nhân thông thường khi nói đến hàng hóa được kiểm soát và một số hình thức thương mại nhất định.<br><br>
+      <span class="pill">Vấn đề 1 — Hàng kiểm soát</span> Nếu affiliate cá nhân quảng bá các sản phẩm thuộc danh mục kiểm soát (thực phẩm chức năng tăng cơ, sản phẩm giảm cân, sản phẩm y tế chưa kiểm định, tiền điện tử…) mà không có tư cách doanh nghiệp xác minh → video bị xóa, tài khoản bị hạn chế.<br><br>
+      <span class="pill">Vấn đề 2 — Không khai báo thương mại</span> Bất kỳ ai quảng bá sản phẩm để nhận hoa hồng <em>bắt buộc</em> phải bật nút "Thông báo nội dung thương mại / Branded content". Nếu không làm: video không lên FYF, vi phạm nhiều lần → bị cấm đăng nội dung hoặc khóa tài khoản.<br><br>
+      <span class="pill">Vấn đề 3 — Sản phẩm bị cấm hoàn toàn</span> Một số sản phẩm (<em>ví dụ: thực phẩm chức năng phụ khoa, chữa bệnh hiểm nghèo, sản phẩm người lớn...</em>) bị cấm tuyệt đối với cả doanh nghiệp lẫn cá nhân — affiliate quảng bá sẽ bị xử lý ngay, không phân biệt loại tài khoản.
+    </div>
+  </div>
+
+  <div class="highlight-box purple">
+    <div class="hb-title">Video được tạo bằng AI — Có cần ghi nhãn không?</div>
+    <div class="hb-body">
+      <span class="pill">Câu trả lời: CÓ — bắt buộc trong nhiều trường hợp</span><br><br>
+      <strong style="font-weight:500">Bắt buộc dán nhãn AI (theo chính sách TikTok hiện hành):</strong><br>
+      • Video AI có hình ảnh, âm thanh hoặc cảnh quay <em>trông thực tế</em> (realistic) → bắt buộc phải bật toggle "AI-generated content".<br>
+      • Cảnh AI làm người thật nói / làm điều họ chưa làm, hoán đổi khuôn mặt (face-swap), giả giọng người thật.<br><br>
+      <strong style="font-weight:500">Khuyến khích (nhưng không bắt buộc):</strong><br>
+      • Nội dung hoàn toàn do AI tạo ra hoặc được chỉnh sửa đáng kể bằng AI (dù không realistic) → nên dán nhãn để minh bạch.<br><br>
+      <strong style="font-weight:500">Không cần dán nhãn thủ công:</strong><br>
+      • Video chỉ dùng effect AI có sẵn của TikTok → nền tảng <em>tự động</em> hiển thị tên effect.<br>
+      • TikTok cũng tự động gán nhãn khi phát hiện metadata C2PA (ví dụ: từ DALL-E, Midjourney).<br><br>
+      <strong style="font-weight:500">Hậu quả nếu vi phạm:</strong><br>
+      • Video AI thực tế nhưng không dán nhãn → TikTok xóa video, vi phạm nhiều lần → hạn chế / ban tài khoản.<br>
+      • Dùng nhãn AI để <em>cố tình đánh lừa</em> người xem cũng là vi phạm Terms of Service.<br>
+      • Ngay cả khi đã dán nhãn, nội dung AI vẫn bị cấm nếu: giả nguồn tin uy tín, deepfake chính trị, dùng hình ảnh người dưới 18 tuổi, làm tổn hại người thật.
+    </div>
+  </div>
+
+</div>
