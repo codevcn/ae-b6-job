@@ -1,0 +1,33 @@
+Tree view of: D:\D-Jobs\ae-B6\TikTok-Beta\coding
+
+├── .gitignore
+├── .venv
+│   └── pyvenv.cfg
+├── ins.cmd
+├── print_project_tree.py
+├── print_video_metadata.py
+├── project_tree.txt
+├── requirements.txt
+├── src
+│   ├── configs
+│   │   └── configs.json
+│   ├── data
+│   │   └── media
+│   │       └── videoplayback.mp4
+│   ├── features
+│   │   └── unified_reup_bypasser.py
+│   ├── main.py
+│   ├── output
+│   │   └── media
+│   │       └── videoplayback_no_logo.mp4
+│   ├── styles
+│   │   └── palette.css
+│   ├── tools
+│   │   └── video-player
+│   │       ├── .venv
+│   │       │   └── pyvenv.cfg
+│   │       ├── ins.cmd
+│   │       ├── requirements.txt
+│   │       └── video_player.py
+│   └── utils
+│       └── helpers.py
